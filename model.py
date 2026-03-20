@@ -1,34 +1,12 @@
 import pandas as pd
-import matplotlib.pyplot as plt 
-import numpy as np
-import seaborn as sns
+from sklearn.preprocessing import LabelEncoder
+df=pd.read_csv('insurance_data_linear.csv')
+df.head()
+df.info()
 
-# Load dataset
-df = pd.read_csv('insurance_data_linear.csv')  # apni file ka naam
+#This creates a tool that converts labels - numbers
+df = pd.get_dummies(df,columns = ['sex','smoker','region'], drop_first=True)
 
-# Ensure numeric
-df['charges'] = pd.to_numeric(df['charges'], errors='coerce')
-
-# Plot
-plt.figure(figsize=(10,6))
-sns.histplot(df['charges'], kde=True, color='blue')
-
-plt.title('Distribution of Insurance Charges')
-plt.savefig('distribution.png')
-
-print("EDA Visualizations created")
-
-import numpy as np
-import matplotlib.pyplot as plt
-import seaborn as sns
-
-# --- SECTION 1: LOAD DATA ---
-df = pd.read_csv('insurance_data_linear.csv')
-
-print("Dataset loaded successfully!")
-print(f"Shape of dataset: {df.shape}")
+# fit_transform(): learns categories and converts them into numbers
+print("Categorical variables encoded successsfully ")
 print(df.head())
-
-# Member 3: Converting words to numbers (Encoding)
-df = pd.get_dummies(df, columns=['sex', 'smoker', 'region'], drop_first=True)
-print("Categorical variables encoded")
